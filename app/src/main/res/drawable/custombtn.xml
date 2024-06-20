@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<item>
+<item android:state_pressed="false">
     <shape android:shape="rectangle">
         <corners android:radius="4dp"/>
-        <solid android:color="@color/pinkbtn"/>
-        <gradient android:startColor="@color/pinkbtn" android:endColor="@color/greenbtn"/>
+        <solid android:color="@color/white"/>
+<!--        <gradient android:startColor="@color/pinkbtn" android:endColor="@color/greenbtn"/>-->
     </shape>
 </item>
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="4dp"/>
+            <stroke android:width="2dp" android:color="@color/textpink"/>
+            <solid android:color="@color/white"/>
+            <!--        <gradient android:startColor="@color/pinkbtn" android:endColor="@color/greenbtn"/>-->
+        </shape>
+    </item>
 </selector>

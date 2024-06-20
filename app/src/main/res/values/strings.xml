@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MentalMath</string>
+    <string name="app_name">Ментальная арифметика</string>
     <string name="maindescmotivation">Начните решать задачи на скорость! Чем быстрее, тем больше баллов Вы получите</string>
 
     <style name="textcolor">
@@ -34,5 +34,22 @@
     <style name="sendtextcolor">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textColor">@color/secondpink</item>
-        <item name="android:textSize">12sp</item></style>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="testText">
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/roboto_black</item>
+        <item name="android:textSize">96sp</item>
+    </style>
+
+    <style name="btn_keyboard">
+        <item name="android:background">@drawable/custombtn</item>
+<!--        <item name="android:backgroundTint">@color/white</item>-->
+        <item name="android:layout_height">52dp</item>
+        <item name="android:layout_width">88dp</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textColor">@color/textpink</item>
+    </style>
 </resources>

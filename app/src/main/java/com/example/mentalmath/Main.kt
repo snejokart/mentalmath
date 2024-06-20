@@ -1,20 +1,59 @@
 package com.example.mentalmath
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.mentalmath.databinding.ActivityMain2Binding
 
 class Main : AppCompatActivity() {
+
+    private lateinit var bin : ActivityMain2Binding
+
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main2)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+//        enableEdgeToEdge()
+        bin = ActivityMain2Binding.inflate(layoutInflater)
+        setContentView(bin.root)
+
+        bin.btnAddition.setOnClickListener {
+            val int = Intent(this@Main, Manual::class.java)
+            int.putExtra("name", bin.btnAddition.text)
+            startActivity(int)
+            overridePendingTransition(0,0)
+        }
+
+        bin.btnSubtraction.setOnClickListener {
+            val int = Intent(this@Main, Manual::class.java)
+            int.putExtra("name", bin.btnSubtraction.text)
+            startActivity(int)
+            overridePendingTransition(0,0)
+        }
+
+        bin.btnMultiplication.setOnClickListener {
+            val int = Intent(this@Main, Manual::class.java)
+            int.putExtra("name", bin.btnMultiplication.text)
+            startActivity(int)
+            overridePendingTransition(0,0)
+        }
+        bin.btnDivision.setOnClickListener {
+            val int = Intent(this@Main, Manual::class.java)
+            int.putExtra("name", bin.btnDivision.text)
+            startActivity(int)
+            overridePendingTransition(0,0)
+        }
+
+        bin.btnMixed.setOnClickListener {
+            val int = Intent(this@Main, Manual::class.java)
+            int.putExtra("name", bin.btnMixed.text)
+            startActivity(int)
+            overridePendingTransition(0,0)
         }
     }
 }
