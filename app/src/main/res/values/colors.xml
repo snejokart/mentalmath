@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="pinkbtn">#F9BBDE</color>
+    <color name="greenbtn">#C6E588</color>
+    <color name="textpink">#691545</color>
+    <color name="textgreen">#2B331B</color>
+    <color name="secondpink">#C06A9B</color>
+    <color name="secondgreen">#96B951</color>
+    <color name="starcolor">#FFBE3F</color>
+    <color name="uncorrect">#B32020</color>
+</resources>

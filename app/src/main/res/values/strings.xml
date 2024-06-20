@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">MentalMath</string>
+    <string name="maindescmotivation">Начните решать задачи на скорость! Чем быстрее, тем больше баллов Вы получите</string>
+
+    <style name="textcolor">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="custombtnpink">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:layout_marginBottom">26dp</item>
+        <item name="android:textColor">@color/textpink</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:backgroundTint">@color/pinkbtn</item>
+        <item name="android:background">@drawable/custombtn</item>
+        <item name="android:textAlignment">center</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="custombtngreen">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:layout_marginBottom">26dp</item>
+        <item name="android:textColor">@color/textgreen</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/custombtn</item>
+        <item name="android:backgroundTint">@color/greenbtn</item>
+        <item name="android:textAlignment">center</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="sendtextcolor">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/secondpink</item>
+        <item name="android:textSize">12sp</item></style>
+</resources>
