@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Win" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/pinkbtn</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorAccent">@color/greenbtn</item>
+        <item name="android:navigationBarColor">#00FFFFFF</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>
