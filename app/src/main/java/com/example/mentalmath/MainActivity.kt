@@ -19,6 +19,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         val int = Intent(this, Main::class.java)
-        Handler().postDelayed({ startActivity(int); overridePendingTransition(0,0) }, 100L)
+        Handler().postDelayed({
+            startActivity(int)
+            overridePendingTransition(0,0)
+                              },
+            100L)
     }
 }
