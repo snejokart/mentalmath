@@ -38,11 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="36dp"
-            android:fontFamily="@font/roboto_black"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textColor="@color/textpink"
-            android:textSize="24sp" />
+            style="@style/mainTitle" />
 
         <TextView
             android:id="@+id/textView5"
@@ -195,7 +191,7 @@
                 style="@style/sendtextcolor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Самый лучший рекорд в этой категории:" />
+                android:text="Самый лучший рекорд в этой категории: " />
 
             <TextView
                 android:id="@+id/best_record"
@@ -222,7 +218,7 @@
                 style="@style/sendtextcolor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Последний рекорд в этой категории:" />
+                android:text="Последний рекорд в этой категории: " />
 
             <TextView
                 android:id="@+id/last_record"

@@ -1,26 +1,39 @@
 package com.example.mentalmath
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mentalmath.databinding.ActivityMathTaskBinding
+import kotlin.math.cos
 
 @Suppress("NAME_SHADOWING")
 class MathTask : AppCompatActivity() {
 
     private lateinit var bin : ActivityMathTaskBinding
 
-    private var cost = 0
+    private var correct = 0 //количество верно решеных задач
+    private var cost = 0 //счет пользователя
+    private var allansw = 0 //количество всех задач
+    private var remainingTime = 0
+    private var alltime = 0 //общее затраченное время
+    private var mistake = 0 //количество ошибок в начале игры равно нулю
+    private var allmistakes = 0 // общее количество ошибок
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bin = ActivityMathTaskBinding.inflate(layoutInflater)
         setContentView(bin.root)
+        val right_sound = MediaPlayer.create(this, R.raw.right_sound)
+        val incorrect_sound = MediaPlayer.create(this, R.raw.incorrect)
+
 
         val putExc = intent.getStringExtra("name").toString()
 
@@ -56,6 +69,12 @@ class MathTask : AppCompatActivity() {
 //            Log.e("if1", "2 : $num1, $num2, $cost")
         }
 
+        fun formatTime(milliseconds: Int): String {
+            val seconds = (milliseconds / 1000) % 60
+            val minutes = (milliseconds / 1000) / 60
+            return String.format("%02d:%02d", minutes, seconds)
+        }
+
         // если выбран режим "деление", то генерируются числа, которые будут делиться друг на друга без остатка
         fun GenerateDivisibleNumbers() {
             Random(cost)
@@ -74,6 +93,31 @@ class MathTask : AppCompatActivity() {
             Random(cost)
         }
 
+        val countDownTimer = object : CountDownTimer(10000, 1000) { // Обратный отсчет 60 секунд с интервалом 1 секунда
+            override fun onTick(millisUntilFinished: Long) {
+                alltime += 1000
+                remainingTime = millisUntilFinished.toInt()
+                // Каждую секунду этот метод будет вызываться
+                val seconds = millisUntilFinished / 1000
+                // UI с оставшимся временем обновляется
+                bin.timer.text = "$seconds"
+            }
+
+            //когда время заканчивается, таймер запускается заново и числа обновляются, засчитывается как ошибка
+            override fun onFinish() {
+                Random(cost)
+                if (putExc == "Деление") {
+                    GenerateDivisibleNumbers()
+                } else {
+                    Random(cost)
+                }
+                start()
+                mistake++
+                allmistakes++
+            }
+        }
+        countDownTimer.start()
+
         bin.enter.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
@@ -85,36 +129,57 @@ class MathTask : AppCompatActivity() {
                 else if (bin.sign.text == "-") { resultMath = ((bin.num1.text.toString().toDouble() - bin.num2.text.toString().toDouble()).toInt()) }
                 else if (bin.sign.text == "*") { resultMath = ((bin.num1.text.toString().toDouble() * bin.num2.text.toString().toDouble()).toInt()) }
                 else if (bin.sign.text == "/") { resultMath = ((bin.num1.text.toString().toDouble() / bin.num2.text.toString().toDouble()).toInt()) }
-
+                //автоматическая проверка поля производится только тогда, когда длина результата равна значению в поле с ответом
                 if (resultMath.toString().length == bin.enter.text.toString().length) {
                     if (resultMath == bin.enter.text.toString().toInt()) {
-                        Toast.makeText(this@MathTask, "OK, ${bin.num1.text}, ${bin.num2.text}, $resultMath", Toast.LENGTH_SHORT).show()
-                        Random(cost)
+//                        Toast.makeText(this@MathTask, "OK, ${bin.num1.text}, ${bin.num2.text}, $resultMath", Toast.LENGTH_SHORT).show()
                         if (putExc == "Деление") {
                             GenerateDivisibleNumbers()
                         } else {
                             Random(cost)
                         }
-                        cost++
-                        bin.enter.text = ""
-                        bin.record.text = cost.toString()
+                        allansw++ //счетчик всех задач
+                        right_sound.start() //мелодия при верном вводе
+                        mistake = 0 //т.к. ошибки засчитываются только несколько раз подряд, при правильном ответе количество ошибок сбрасывается до нуля
+                        cost++ //счет пользователя
+                        correct++//количество верно решенных задач
+                        bin.enter.text = "" // поле с ответом очищается
+                        bin.record.text = cost.toString() //обновление счета
+                        countDownTimer.cancel() //таймер сбрасывается и начинается заново
+                        countDownTimer.start()
                     } else {
-                        Toast.makeText(this@MathTask, "неправильно, ${bin.num1.text}, ${bin.num2.text}, $resultMath", Toast.LENGTH_SHORT).show()
-                        Random(cost)
+//                        Toast.makeText(this@MathTask, "неправильно, ${bin.num1.text}, ${bin.num2.text}, $resultMath", Toast.LENGTH_SHORT).show()
                         if (putExc == "Деление") {
                             GenerateDivisibleNumbers()
                         } else {
                             Random(cost)
                         }
-                        cost--
-                        bin.enter.text = ""
-                        bin.record.text = cost.toString()
+                        allansw++ //счетчик всех задач
+                        incorrect_sound.start() //мелодия при неверном вводе
+                        mistake++ //добавление одной ошибки
+                        allmistakes++
+                        cost -= 1 //снижение счета
+                        bin.enter.text = "" // поле с ответом очищается
+                        bin.record.text = cost.toString() //обновление счета
+                        countDownTimer.cancel() //таймер сбрасывается и начинается заново
+                        countDownTimer.start()
+
+                        if (mistake == 3) { //когда у пользователя 3 ошибки подряд - тренировка заканчивается
+
+                            incorrect_sound.start()
+                            Toast.makeText(this@MathTask, "ВЫ ПРОИГРАЛИ", Toast.LENGTH_SHORT).show()
+                            val int = Intent(this@MathTask, EndResult::class.java)
+                            int.putExtra("cost", cost.toString())
+                            int.putExtra("allansw", allansw.toString())
+                            int.putExtra("correct", correct.toString())
+                            int.putExtra("allmistakes", allmistakes.toString())
+                            int.putExtra("alltime", formatTime(alltime))
+//                            int.putExtra("alltime", alltime.toString())
+                            startActivity(int)
+                            overridePendingTransition(0,0)
+                        }
                     }
                 }
-
-
-                // Вызывается после изменения текста
-                // Здесь вы можете выполнить нужные вам действия при изменении текста в EditText
             }
         })
 
