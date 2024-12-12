@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.widget.Switch
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -20,12 +21,39 @@ class Main : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
 
+//    private fun soundOn() {
+//        val audioManager = getSystemService(AUDIO_SERVICE) as android.media.AudioManager
+//        audioManager.setStreamVolume(android.media.AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(android.media.AudioManager.STREAM_MUSIC), 0)
+//    }
+//
+//    private fun soundOff() {
+//        val audioManager = getSystemService(AUDIO_SERVICE) as android.media.AudioManager
+//        audioManager.setStreamVolume(android.media.AudioManager.STREAM_MUSIC, 0, 0)
+//    }
+
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         bin = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(bin.root)
+
+        //        bin.switchSound.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                // Включить звук
+//                soundOn()
+//                bin.switchSound.text = "Отключить звук "
+//            } else {
+//                // Отключить звук
+//                soundOff()
+//                bin.switchSound.text = "Включить звук "
+//            }
+//        }
+
+        bin.btnProfile.setOnClickListener {
+            startActivity(Intent(this, YourAccount::class.java))
+            overridePendingTransition(0,0)
+        }
 
         // Инициализация SharedPreferences
         sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
