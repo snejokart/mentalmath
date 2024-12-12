@@ -16,21 +16,61 @@ import com.example.mentalmath.databinding.ActivityMain2Binding
 
 class Main : AppCompatActivity() {
 
-//    private lateinit var sharedPreferences: SharedPreferences
-
     private lateinit var bin : ActivityMain2Binding
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-//        val cost_save = sharedPreferences.getInt("cost_save", 0)
-//        bin.bestRecord.text = cost_save.toString()
-
-//        enableEdgeToEdge()
         bin = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(bin.root)
+
+        // Инициализация SharedPreferences
+        sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+
+        val lastCost = sharedPreferences.getInt("last_cost", 0)
+        bin.lastRecord.text = lastCost.toString()
+
+        val last_category = sharedPreferences.getString("last_category", "")
+        bin.lastCategory.text = last_category
+
+        // Создаем карту для хранения названий операций и их значений
+        val operations = mapOf(
+            "Сложение" to sharedPreferences.getInt("save_cost_add", 0),
+            "Вычитание" to sharedPreferences.getInt("save_cost_sub", 0),
+            "Умножение" to sharedPreferences.getInt("save_cost_mult", 0),
+            "Деление" to sharedPreferences.getInt("save_cost_div", 0),
+            "Всё вместе" to sharedPreferences.getInt("save_cost_all_op", 0)
+        )
+
+// Находим максимальное значение и соответствующее название операции
+        val maxOperation = operations.maxByOrNull { it.value }
+
+// Проверяем, что maxOperation не равно null
+        if (maxOperation != null) {
+            // Устанавливаем текст для TextView с максимальным значением
+            bin.bestRecord.text = maxOperation.value.toString()
+            // Устанавливаем текст для TextView с названием операции
+            bin.bestCategory.text = maxOperation.key
+        } else {
+            // Если maxOperation равно null, выводим сообщение
+            bin.bestRecord.text = "0"
+            bin.bestCategory.text = ""
+        }
+
+//// Получение сохраненных значений
+//        val addCost = sharedPreferences.getInt("save_cost_add", 0)
+//        val subCost = sharedPreferences.getInt("save_cost_sub", 0)
+//        val multCost = sharedPreferences.getInt("save_cost_mult", 0)
+//        val divCost = sharedPreferences.getInt("save_cost_div", 0)
+//        val allOpCost = sharedPreferences.getInt("save_cost_all_op", 0)
+//
+//// Находим максимальное значение среди всех переменных
+//        val maxCost = maxOf(addCost, subCost, multCost, divCost, allOpCost)
+//
+//        bin.bestRecord.text = maxCost.toString()
 
         bin.btnAddition.setOnClickListener {
             val int = Intent(this@Main, Manual::class.java)

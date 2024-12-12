@@ -23,6 +23,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(int)
             overridePendingTransition(0,0)
                               },
-            100L)
+            1000L)
     }
 }

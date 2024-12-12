@@ -50,17 +50,17 @@ class MathTask : AppCompatActivity() {
             var num2 = 0
 
             if (cost < 15){
-                num1 = (2..15).random()
-                num2 = (2..15).random()
+                num1 = (2..10).random()
+                num2 = (2..10).random()
             } else if (cost < 31) {
-                num1 = (3..20).random()
-                num2 = (3..20).random()
+                num1 = (3..15).random()
+                num2 = (3..15).random()
             } else if (cost < 61) {
-                num1 = (20..50).random()
-                num2 = (20..50).random()
+                num1 = (7..30).random()
+                num2 = (7..30).random()
             } else if (cost >= 61) {
-                num1 = (40..100).random()
-                num2 = (40..100).random()
+                num1 = (10..100).random()
+                num2 = (10..100).random()
             }
 
             bin.num1.text = num1.toString()
@@ -174,6 +174,7 @@ class MathTask : AppCompatActivity() {
                             int.putExtra("correct", correct.toString())
                             int.putExtra("allmistakes", allmistakes.toString())
                             int.putExtra("alltime", formatTime(alltime))
+                            int.putExtra("operation", putExc)
 //                            int.putExtra("alltime", alltime.toString())
                             startActivity(int)
                             overridePendingTransition(0,0)
